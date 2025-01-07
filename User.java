@@ -43,9 +43,9 @@
 
     /** If this user follows the given name, returns true; otherwise returns false. */
     public boolean follows(String name) {
-        for (int i = 0; i < this.follows.length; i++)
+        for (int i = 0; i < this.getfCount(); i++)
         {
-            if (this.follows[i] != null && this.follows[i].equals(name)) {
+            if ( this.follows[i].equals(name)) {
                 return true;
             }
         }
@@ -54,16 +54,16 @@
     /** Makes this user follow the given name. If successful, returns true. 
      *  If this user already follows the given name, or if the follows list is full, does nothing and returns false; */
     public boolean addFollowee(String name) {
-        if (follows(name) == true) {
+        if (this.follows(name) == true) {
             return false;
         }
-        if (getfCount() == 10) {
+        if (this.getfCount() == 10) {
             return false;
         }
         for (int i = 0; i < this.follows.length; i++)
         {
             if (this.follows[i] == null) {
-                follows[i] = name;
+                this.follows[i] = name;
                 this.fCount++;
                 return true;
             }
@@ -74,15 +74,15 @@
     /** Removes the given name from the follows list of this user. If successful, returns true.
      *  If the name is not in the list, does nothing and returns false. */
     public boolean removeFollowee(String name) {
-        if (follows(name) == false) {
+        if (this.follows(name) == false) {
         return false;
         }
-        for (int i = 0; i < this.follows.length; i++)       //goes over the following array
+        for (int i = 0; i < this.getfCount(); i++)       //goes over the following array
         {
-            if (this.follows[i] == name) {      //once we find the name we go into a loop
+            if (this.follows[i].equals(name)) {      //once we find the name we go into a loop
                 for (int j = i+1; j < getfCount(); j++)     //we go into anoter loop where we change the positions accordingly
                 {
-                    if (j == getfCount())           //once we arrive at the end of the list, we put a null and return true
+                    if (j == getfCount() - 1)           //once we arrive at the end of the list, we put a null and return true
                     {
                         follows[j] = null;
                         this.fCount--;
@@ -119,7 +119,7 @@
     /** Checks is this user is a friend of the other user.
      *  (if two users follow each other, they are said to be "friends.") */
     public boolean isFriendOf(User other) {
-        if (this.follows(other.getName()) == true && other.follows(this.getName()) == true) {
+        if ((this.follows(other.getName()) == true) && other.follows(this.getName()) == true) {
             return true;
         }
         return false;
