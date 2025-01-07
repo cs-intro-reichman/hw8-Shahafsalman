@@ -85,6 +85,7 @@
                     if (j == getfCount())           //once we arrive at the end of the list, we put a null and return true
                     {
                         follows[j] = null;
+                        this.fCount--;
                         return true;
                     }
                     else
