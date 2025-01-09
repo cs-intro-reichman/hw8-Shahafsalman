@@ -31,7 +31,7 @@ public class Network {
     public User getUser(String name) {
         for (int i = 0; i < this.userCount; i++)
         {
-            if (this.users[i].getName().equals(name)) {
+            if (this.users[i].getName().equalsIgnoreCase(name)) {
                 return this.users[i];
             }
         }
@@ -59,23 +59,27 @@ public class Network {
      *  If any of the two names is not a user in this network,
      *  or if the "follows" addition failed for some reason, returns false. */
     public boolean addFollowee(String name1, String name2) {
-        if (getUser(name1) == null && getUser(name2) == null) {
+        if (name1 == null || name2 == null || name1.equalsIgnoreCase(name2)) {
+            return false;
+        }
+        if (getUser(name1) == null || getUser(name2) == null || getUser(name1).follows(name2)) {
             return false;
         }
         getUser(name1).addFollowee(name2);
-        if (getUser(name1).follows(name2) == true) {
             return true;
-        }
-        return false;
     }
+    
     
     /** For the user with the given name, recommends another user to follow. The recommended user is
      *  the user that has the maximal mutual number of followees as the user with the given name. */
     public String recommendWhoToFollow(String name) {
         int max = 0;
         String saveMaxName = null;
-        for (int i = 0; i < this.getUserCount(); i++)
+        for (int i = 0; i < userCount; i++)
         {
+            if (this.users[i].getName().equalsIgnoreCase(name)) {
+                continue;
+            }
            if (max < this.users[i].countMutual(getUser(name))) {
             saveMaxName = this.users[i].getName();
             max = this.users[i].countMutual(getUser(name));
@@ -91,8 +95,8 @@ public class Network {
         String saveMaxName = null;
         for (int i = 0; i < this.userCount; i++)
         {
-            if (maxFollowers < followeeCount(this.users[i].getName())) {
-                maxFollowers = followeeCount(this.users[i].getName());
+            if (maxFollowers < followeeCount(users[i].getName())) {
+                maxFollowers = followeeCount(users[i].getName());
                 saveMaxName = this.users[i].getName();
             }
         }
@@ -103,9 +107,9 @@ public class Network {
      *  the users in this network. Note: A name can appear 0 or 1 times in each list. */
     private int followeeCount(String name) {
         int count = 0;
-        for (int i = 0; i < this.users.length; i++)
+        for (int i = 0; i < userCount; i++)
         {
-            if (this.users[i] != null && this.users[i].getName().equalsIgnoreCase(name)) {
+            if (users[i].follows(name)) {
                 count++;
             }
         }

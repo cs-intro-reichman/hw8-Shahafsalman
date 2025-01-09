@@ -80,23 +80,19 @@
         for (int i = 0; i < this.getfCount(); i++)       //goes over the following array
         {
             if (this.follows[i].equalsIgnoreCase(name)) {      //once we find the name we go into a loop
-                for (int j = i+1; j < this.getfCount(); j++)     //we go into anoter loop where we change the positions accordingly
+                
+                for (int j = i; j < this.getfCount() - 1; j++)     //we go into anoter loop where we change the positions accordingly
                 {
-                    if (j == this.getfCount() - 1)           //once we arrive at the end of the list, we put a null and return true
-                    {
-                        this.follows[j] = null;
-                        this.fCount--;
-                        return true;
-                    }
-                    else
-                    {
-                        this.follows[i] = this.follows[j];            //we go over the list and go up 
-                        i++;
-                    }
+                        this.follows[i] = this.follows[j+1];            //we go over the list and go up 
                 }
             }
+        
+            this.follows[this.fCount - 1] = null;
+            this.fCount--;
+            return true;
         }
         return false;
+
     }
 
     /** Counts the number of users that both this user and the other user follow.
