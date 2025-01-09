@@ -45,7 +45,7 @@
     public boolean follows(String name) {
         for (int i = 0; i < this.getfCount(); i++)
         {
-            if ( this.follows[i].equals(name)) {
+            if ( this.follows[i].equalsIgnoreCase(name)) {
                 return true;
             }
         }
@@ -79,13 +79,13 @@
         }
         for (int i = 0; i < this.getfCount(); i++)       //goes over the following array
         {
-            if (this.follows[i].equals(name)) {      //once we find the name we go into a loop
+            if (this.follows[i].equalsIgnoreCase(name)) {      //once we find the name we go into a loop
                 for (int j = i+1; j < getfCount(); j++)     //we go into anoter loop where we change the positions accordingly
                 {
                     if (j == getfCount() - 1)           //once we arrive at the end of the list, we put a null and return true
                     {
                         follows[j] = null;
-                        this.fCount--;
+                        fCount--;
                         return true;
                     }
                     else
@@ -107,7 +107,7 @@
         {
             for (int j = 0; j < other.fCount; j++)
             {
-                if (this.follows[i] == other.follows[j]) {
+                if (this.follows[i].equalsIgnoreCase(other.follows[j])) {
                     count++;
                     j = other.fCount;
                 }
