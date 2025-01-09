@@ -80,17 +80,17 @@
         for (int i = 0; i < this.getfCount(); i++)       //goes over the following array
         {
             if (this.follows[i].equalsIgnoreCase(name)) {      //once we find the name we go into a loop
-                for (int j = i+1; j < getfCount(); j++)     //we go into anoter loop where we change the positions accordingly
+                for (int j = i+1; j < this.getfCount(); j++)     //we go into anoter loop where we change the positions accordingly
                 {
-                    if (j == getfCount() - 1)           //once we arrive at the end of the list, we put a null and return true
+                    if (j == this.getfCount() - 1)           //once we arrive at the end of the list, we put a null and return true
                     {
-                        follows[j] = null;
-                        fCount--;
+                        this.follows[j] = null;
+                        this.fCount--;
                         return true;
                     }
                     else
                     {
-                        follows[i] = follows[j];            //we go over the list and go up 
+                        this.follows[i] = this.follows[j];            //we go over the list and go up 
                         i++;
                     }
                 }
